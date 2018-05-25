@@ -1,0 +1,313 @@
+@import "../../../custom/scss/config";
+@import "mixins";
+@import "menu";
+@import "buttons";
+
+.blocks {
+  %row-style {
+    $padding: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    & > * {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      margin-top: $padding;
+      margin-bottom: $padding;
+    }
+  }
+  @include flex-skeleton($max-narrow-width);
+  flex-wrap: wrap;
+  padding-top: 2.2rem;
+  padding-bottom: 1.8rem;
+  &__row {
+    > * {
+      position: relative;
+      box-sizing: border-box;
+    }
+    &--full {
+      flex: 1 0 100%;
+      @extend %row-style;
+    }
+    &--half {
+      flex: 1 0 50%;
+      @extend %row-style;
+      & + & {
+        text-align: right;
+      }
+    }
+  }
+
+  @include flex-two-column-generator(30 35 40 45 50);
+
+}
+
+.block-module-redactor {
+  > *:first-child {
+    padding-top: 0;
+    margin-top: 0;
+  }
+  &:first-child {
+    > *:first-child {
+      padding: 0;
+      margin-top: 0;
+    }
+  }
+  h3 {
+    font-weight: normal;
+    font-size: 1.6em;
+    color: $color-purple-dark;
+    padding: 0;
+    margin: 0;
+  }
+  p {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.block-module-items {
+  flex-direction: row;
+  @include flex-center(flex-start);
+  text-align: center;
+  &__cell {
+    box-sizing: border-box;
+  }
+}
+
+.block-module-tabs {
+  $number-tabs: 3;
+  $font-size-block: $font-size;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  &__title {
+    $font-size-current: 20px;
+    font-size: em($font-size-current, $font-size-block);
+    padding: em(12px, $font-size-current) 0;
+    border: 1px solid $color-line;
+    border-radius: 5px 5px 0 0;
+    flex: 1 0 100%/$number-tabs;
+    &--active {
+      font-weight: bold;
+      border-bottom-color: white;
+    }
+  }
+  &__contents {
+    margin-top: -2px;
+    width: (round-unit(100%/$number-tabs)) * $number-tabs
+  }
+  &__text {
+    $font-size-current: 18px;
+    font-size: em($font-size-current, $font-size-block);
+    padding: em(10px, $font-size-current) em(32px, $font-size-current) em(42px, $font-size-current) em(32px, $font-size-current);
+    border: 1px solid $color-line;
+    border-top-width: 0;
+    > ul {
+      flex: 1 0 50%;
+      padding-left: 0;
+      padding-right: 2em;
+      list-style: none;
+      box-sizing: border-box;
+      &:last-child {
+        padding-left: 0;
+        padding-right: 2em;
+      }
+      li {
+        padding-top: 0;
+        margin-top: 0;
+      }
+      > li {
+        position: relative;
+        &:before {
+          $radius: 6px;
+          font-size: $radius;
+          content: '\f111';
+          font-family: FontAwesome;
+          position: absolute;
+          top: 1.6em;
+          left: 0;
+        }
+        > ul {
+          list-style: none;
+          padding-left: 0;
+          margin-left: 0;
+          li {
+            padding-top: 0;
+            margin-top: 0;
+            position: relative;
+            &:before {
+              content: '-';
+              position: absolute;
+              top: 0;
+              left: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.block-module-collapse {
+  $font-size-block: $font-size;
+  font-size: rem($font-size-block, $font-size);
+  &__all {
+    font-size: em(18px, $font-size-block);
+    text-align: right;
+    margin-bottom: 1em;
+  }
+  &__collapse-expand-all {
+    color: black;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &__row {
+    margin-bottom: 1em;
+  }
+  &__title {
+    font-size: em(18px, $font-size-block);
+    color: $color-purple-dark;
+    font-weight: bold;
+    box-sizing: border-box;
+    justify-items: stretch;
+    align-items: center;
+    border: 1px solid $color-purple-dark;
+    border-radius: 3px;
+    background: white;
+    cursor: pointer;
+    padding: 0.6em 0.8em;
+    &:after {
+      content: "\f055";
+      font-family: FontAwesome;
+      font-size: 1.2em;
+      float: right;
+    }
+    &--open {
+      &:after {
+        content: "\f056";
+      }
+    }
+  }
+  &__text {
+    font-size: em(18px, $font-size-block);
+    color: black;
+    display: none;
+    &--open {
+      display: inline-block;
+    }
+  }
+}
+
+.general__section {
+  display: none;
+  &.narrow-blocks {
+    padding-top: 4rem;
+    .blocks {
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+    }
+    h1 {
+      font-size: rem(36px, $font-size);
+    }
+    h3 {
+      font-size: rem(24px, $font-size);
+      font-weight: bold;
+      color: $color-purple;
+    }
+  }
+  &--post-content {
+    max-width: $max-narrow-width;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+  }
+}
+
+.general__header {
+  $line-thickness: 1em;
+  padding-top: 0.5rem;
+  background: url(../../../images/background/color-line.png) repeat-x;
+  margin-bottom: -$line-thickness;
+  &--top {
+    padding-top: 1.1em;
+    padding-bottom: 1.1em;
+    background: $color-blue;
+  }
+  &--bottom {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    position: relative;
+    z-index: 1;
+  }
+  &--under {
+    min-height: $line-thickness;
+    background-color: $color-blue;
+  }
+}
+
+.general__logo {
+  display: inline-block;
+  box-sizing: border-box;
+  position: absolute;
+  top: -2em;
+  left: 0;
+  z-index: 1;
+  a {
+    display: inline-block;
+    box-sizing: border-box;
+  }
+}
+
+.general__footer-top {
+  background: url("../../../images/background/color-line.png") repeat-x;
+  font-size: 1.12rem;
+  .blocks {
+    max-width: $max-width;
+  }
+  h3 {
+    font-size: 1.4em;
+    font-weight: normal;
+    padding: 0 0 1em 0 !important;
+    margin: 0;
+  }
+}
+
+.general__footer-bottom {
+  font-size: 0.88rem;
+  padding-top: 1.9em;
+  padding-bottom: 1.9em;
+  background: $color-light-line;
+}
+
+.skeleton-narrow {
+  @include flex-skeleton($max-narrow-width);
+}
+
+.width-long {
+  @include flex-skeleton($max-long-width);
+}
+
+.reset-margin-padding {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.reset-margin-padding-top {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.reset-margin-padding-bottom {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.reset-margin-padding-top-bottom {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}

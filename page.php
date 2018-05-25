@@ -1,0 +1,1 @@
+<?php get_header() ?><div class="general__simple">    <?php echo Pupuga\Libs\Files\Files::getTemplatePupuga('main', true) ?></div><?php get_footer() ?>
