@@ -1,6 +1,5 @@
-@import "../../../modules/mixins/mixins";
 @import "../../../custom/scss/config";
-@import "buttons";
+@import "mixins";
 
 %input {
   font-size: rem(14px, $font-size);
@@ -29,6 +28,11 @@
     display: flex;
     margin: 0 auto;
     margin-top: 2em;
+    @include media-480 {
+      width: 100%;
+      max-width: 300px;
+      display: flex !important;
+    }
   }
 
   textarea {

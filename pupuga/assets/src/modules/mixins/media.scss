@@ -5,23 +5,33 @@
 }
 
 @mixin media-320() {
-  @include media(320);
+  @include media(320){
+    @content
+  };
 }
 
 @mixin media-480() {
-  @include media(480);
+  @include media(480){
+    @content
+  };
 }
 
 @mixin media-576() {
-  @include media(576);
+  @include media(576){
+    @content
+  };
 }
 
 @mixin media-768() {
-  @include media(768);
+  @include media(768){
+    @content
+  };
 }
 
 @mixin media-1024() {
-  @include media(1024);
+  @include media(1024){
+    @content
+  };
 }
 
 @mixin media-hide-visible($medias) {

@@ -7,7 +7,7 @@ Deny from all
  Deny from all
 </FilesMatch>
 
-<FilesMatch "\.(map|css|js|eot|ttf|woff|woff2|svg|jpe?g|png|gif|webp)$">
+<FilesMatch "\.(map|css|js|eot|ttf|woff|woff2|svg|jpe?g|png|gif|webp|cur)$">
  Order Allow,Deny
  Allow from all
 </FilesMatch>

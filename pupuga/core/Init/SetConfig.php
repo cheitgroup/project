@@ -113,8 +113,8 @@ class SetConfig extends Pupuga\Config
         // support thumbnail
         add_theme_support('post-thumbnails');
         //add thumbnail sizes
-        if (is_array($this->config['thumbnails'])) {
-            foreach ($this->config['thumbnails'] as $thumbnail => $crop) {
+        if (is_array($this->config['registerThumbnails'])) {
+            foreach ($this->config['registerThumbnails'] as $thumbnail => $crop) {
                 $thumbnailSizes = explode('x', $thumbnail);
                 if ($crop !== true) {
                     $crop = false;
@@ -131,8 +131,8 @@ class SetConfig extends Pupuga\Config
             // add custom taxonomies
             if (isset($customPostTypeConfig['addTaxonomies']) && is_array($customPostTypeConfig['addTaxonomies']) && count($customPostTypeConfig['addTaxonomies']) > 0) {
                 foreach ($customPostTypeConfig['addTaxonomies'] as $addTaxonomies) {
-                    $postType_single = str_replace(' ', '_', strtolower($addTaxonomies['single']));
-                    $customPostTypeConfig['taxonomies'][] = $postType_single;
+                    $postTypeSingle = str_replace(' ', '_', strtolower($addTaxonomies['single']));
+                    $customPostTypeConfig['taxonomies'][] = $postTypeSingle;
                     Posts\Taxonomy::app($addTaxonomies, array($postType))->addAction();
                 }
             }

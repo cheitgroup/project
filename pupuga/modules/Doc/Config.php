@@ -27,7 +27,7 @@ class Config
      *  )
      */
     private $config = array(
-        /*array(
+/*        array(
             'title' => 'Title',
             'description' => 'Description',
             'file' => 'file name'

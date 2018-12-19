@@ -7,6 +7,7 @@ class Taxonomy
     private $taxonomy;
     private $postTypes;
     private $labelsCustom;
+    private $configCustom = array();
 
     private function __construct()
     {
@@ -14,13 +15,16 @@ class Taxonomy
 
     public static function app($taxonomy = array(), $postTypes = array(), $labelsCustom = array())
     {
-        $object = new Taxonomy();
+        $object = new self();
 	    if (!isset($object->taxonomy['many'])) {
 		    $object->taxonomy['many'] = $object->taxonomy['single'];
 	    }
 	    $object->taxonomy = $taxonomy;
 	    $object->postTypes = $postTypes;
 	    $object->labelsCustom = $labelsCustom;
+	    if (isset($taxonomy['params']) && is_array($taxonomy['params']) && count($taxonomy['params']) > 0) {
+            $object->configCustom = $taxonomy['params'];
+        };
         return $object;
     }
 
@@ -53,7 +57,7 @@ class Taxonomy
 
         $slug = str_replace(' ', '_' ,strtolower($this->taxonomy['single']));
 
-        register_taxonomy($slug, $this->postTypes, array(
+        $configDefault = array(
             'label'                 => '',
             'labels'                => $labels,
             'public'                => true,
@@ -63,7 +67,7 @@ class Taxonomy
             'hierarchical'          => true,
             'update_count_callback' => '',
             'rewrite'               => array($slug),
-            'query_var'             => true,
+            'query_var'             => false,
             'capabilities' => array(
                 'manage_terms' => 'edit_posts',
                 'edit_terms' => 'edit_posts',
@@ -74,7 +78,11 @@ class Taxonomy
             'show_admin_column'     => true,
             '_builtin'              => false,
             'show_in_quick_edit'    => null,
-        ));
+        );
+
+        $config = array_merge($configDefault, $this->configCustom);
+
+        register_taxonomy($slug, $this->postTypes, $config);
     }
 
 }

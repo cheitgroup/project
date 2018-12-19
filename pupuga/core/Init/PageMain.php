@@ -9,19 +9,14 @@ class PageMain
 
     public function __construct()
     {
-        add_action('get_footer', array($this, 'addStylesScripts'));
+        if (!is_admin() && $GLOBALS['pagenow'] != 'wp-login.php') {
+               $this->addStylesScript();
+               $this->addCoreStylesScripts();
+        }
     }
 
-    public function addStylesScripts()
+    public function addStylesScript()
     {
-        wp_enqueue_style('style', __URLMAIN__ . 'style.css');
-        wp_enqueue_script('jquery');
-        wp_enqueue_script('jquery-migrate');
-        wp_localize_script('jquery', 'globalVars', array(
-            'url' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('check-nonce')
-        ));
-
         $enqueues = array(
             'styles' => array(
                 'style-bundle' => 'bundle.css',
@@ -33,7 +28,17 @@ class PageMain
             )
         );
 
-        Load\StylesScripts::app()->requireStylesScripts($enqueues);
+        Load\StylesScripts::app()->requireStylesScriptsIntoFooter($enqueues);
+    }
 
+    public function addCoreStylesScripts()
+    {
+        wp_enqueue_style('style', __URLMAIN__ . 'style.css');
+        wp_enqueue_script('jquery');
+        wp_enqueue_script('jquery-migrate');
+        wp_localize_script('jquery', 'globalVars', array(
+            'url' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('check-nonce')
+        ));
     }
 }

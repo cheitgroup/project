@@ -51,6 +51,7 @@ class Html
     public static function cleanEmptyTagsHtml($html)
     {
         $html = preg_replace(array('/\<p\>([ \t\n\r\f\v]*)\<div/', '/\<\/div\>([ \t\n\r\f\v]*)\<\/p\>/'), array('<div', '</div>'), $html);
+        $html = preg_replace(array('/\<\/p\>([ \t\n\r\f\v]*)\<\/p\>/'), array(''), $html);
 
         return $html;
     }

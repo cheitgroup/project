@@ -11,10 +11,12 @@ abstract class Files
         $this->requireFiles = array(
             'core' => array(
                 'Init/Init',
-	        'Carbon/Init'
+	            'Carbon/Init'
             ),
             'custom' => array(
-                'ThemeMethods/Hooks'
+                //'ThemeMethods/Hooks',
+                'ThemeMethods/GetFile',
+                'Shop/Init'
             )
         );
     }

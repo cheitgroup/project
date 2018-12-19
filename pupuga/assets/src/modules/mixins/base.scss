@@ -10,8 +10,8 @@
     margin: 0;
     padding: 0;
     line-height: 1;
-    @include media(768) {
-      font-size: $font-size - 2px;
+    @include media(1024) {
+      font-size: 14px;
     }
   }
 
@@ -157,8 +157,8 @@
   textarea {
     cursor: text;
     @include placeholder(color, $placeholder-color);
-    @include placeholder(font-weight, bold);
-    @include placeholder(opacity, 1);
+    @include placeholder(font-weight, normal);
+    @include placeholder(opacity, 0.7);
     @include placeholder(font-family, $font-family);
   }
 }
@@ -253,9 +253,10 @@
 @mixin base-light($font-family: sans-serif, $placeholder-color: #9b9b9b) {
   @include common-typography($font-family);
   @include common-classes();
+  @include common-important-classes();
 }
 
-@mixin base($font-family: sans-serif, $media-points: 1024 768 480 320, $placeholder-color: #9b9b9b) {
+@mixin base($font-family: sans-serif, $media-points: 1024 768 480 320, $placeholder-color: #acacac) {
   @include common-typography($font-family);
   @include common-forms($font-family, $placeholder-color);
   @include common-classes();

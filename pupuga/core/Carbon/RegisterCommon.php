@@ -21,6 +21,7 @@ class RegisterCommon
                     if (count($type) > 0) {
                         foreach ($type as $condition => $params) {
                             if ($condition == 'add_fields' && is_array($params) && count($params) > 0) {
+                                $complexFields = array();
                                 foreach ($params as $fieldParams) {
                                     $complexFields[] = Field::make($fieldParams[0], $fieldParams[1], $fieldParams[2]);
                                 }

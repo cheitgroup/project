@@ -7,7 +7,7 @@ class StylesScripts
     public static $instance;
     protected $enqueues;
     protected $dir = __DIRASSETS__;
-    protected $url = __URLASSETS__;
+    protected $url = __URLASSETSDIST__;
 
     /**
      * @return $this
@@ -39,7 +39,7 @@ class StylesScripts
     }
 
 
-    protected function requireFiles()
+    public function requireFiles()
     {
         $enqueues = $this->enqueues;
         $dir = $this->dir;
@@ -50,10 +50,10 @@ class StylesScripts
                     if (is_file($dir . $file)) {
                         switch ($type) {
                             case 'styles':
-                                wp_enqueue_style($name, $url . $file);
+                                wp_enqueue_style($name, $url . $file, array(), VERSION);
                                 break;
                             case 'scripts':
-                                wp_enqueue_script($name, $url . $file, array(), null, true);
+                                wp_enqueue_script($name, $url . $file, array(), VERSION, true);
                                 break;
                         }
                     }
@@ -66,5 +66,20 @@ class StylesScripts
     {
         $this->enqueues = $enqueues;
         $this->requireFiles();
+    }
+
+    public function requireStylesScriptsIntoFooter($enqueues)
+    {
+        $this->enqueues = $enqueues;
+        $priority = array();
+        if (isset($enqueues['priority'])) {
+            $priority['priority'] = $enqueues['priority'][0];
+            $priority['accepted'] = $enqueues['priority'][1];
+            unset($enqueues['priority']);
+        } else {
+            $priority['priority'] = 10;
+            $priority['accepted'] = 1;
+        }
+        add_action('get_footer', array($this, 'requireFiles'), $priority['priority'], $priority['accepted']);
     }
 }

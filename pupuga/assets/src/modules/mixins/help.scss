@@ -5,28 +5,18 @@
   #{$property}: $parameters;
 }
 
-@mixin placeholder($property: none, $parameters: none) {
+@mixin placeholder($property, $parameters) {
   &::-webkit-input-placeholder {
-    opacity: 1;
-    @if ($property != 'none') {
-      $property: $parameters;
-    }
+    #{$property}: $parameters;
   }
   &:-moz-placeholder {
-    @if ($property != 'none') {
-      $property: $parameters;
-    }
+    #{$property}: $parameters;
   }
   &::-moz-placeholder {
-    @if ($property != 'none') {
-      $property: $parameters;
-    }
+    #{$property}: $parameters;
   }
   &:-ms-input-placeholder {
-    opacity: 1;
-    @if ($property != 'none') {
-      $property: $parameters;
-    }
+    #{$property}: $parameters;
   }
 }
 

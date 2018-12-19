@@ -4,11 +4,13 @@ namespace Pupuga;
 
 use \Pupuga\Core\Base;
 
+define('VERSION', '20181112');
 define('__DIRFRAMEWORK__', __DIR__ . '/');
 define('__DIRMAIN__', dirname(__DIRFRAMEWORK__) . '/');
 define('__URLMAIN__', get_stylesheet_directory_uri() . '/');
 define('__DIRASSETS__', __DIRFRAMEWORK__ . 'assets/dist/');
-define('__URLASSETS__', __URLMAIN__ . 'pupuga/assets/dist/');
+define('__URLASSETS__', __URLMAIN__ . 'pupuga/assets/');
+define('__URLASSETSDIST__', __URLASSETS__ . 'dist/');
 define('__DIRMODULES__', __DIRFRAMEWORK__ . 'modules/');
 define('__URLMODULES__', __URLMAIN__ . 'pupuga/modules/');
 define('__DIRTEMPLATES__', __DIRFRAMEWORK__ . 'templates/');

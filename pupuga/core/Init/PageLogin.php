@@ -9,11 +9,13 @@ class PageLogin
 
     public function __construct()
     {
-        // login style & scripts
-        add_action('login_head', array($this, 'addStylesScripts'));
-        add_action('login_enqueue_scripts', array($this, 'setLogoImage'));
-        add_filter('login_headerurl', array($this, 'setLogoUrl'));
-        add_filter('login_headertitle', array($this, 'setLogoTitle'));
+        if ($GLOBALS['pagenow'] == 'wp-login.php') {
+            // login style & scripts
+            add_action('login_head', array($this, 'addStylesScripts'));
+            add_action('login_enqueue_scripts', array($this, 'setLogoImage'));
+            add_filter('login_headerurl', array($this, 'setLogoUrl'));
+            add_filter('login_headertitle', array($this, 'setLogoTitle'));
+        }
     }
 
     public function addStylesScripts()

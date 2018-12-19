@@ -231,6 +231,16 @@ class GetPosts
      * @param $arguments
      * @return $this
      */
+    public function postIn($arguments)
+    {
+        $this->args['post__in'] = $arguments;
+        return $this;
+    }
+
+    /**
+     * @param $arguments
+     * @return $this
+     */
     public function noPaging($arguments)
     {
         $this->args['nopaging'] = $arguments;

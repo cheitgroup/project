@@ -41,6 +41,12 @@ class CarbonFields
                                     Field::make('complex', 'tabs', '')->add_fields($this->setTabsFields()),
                                 )
                             )
+                            ->add_fields('audio', array(
+                                    Field::make('select', 'audio_module__color_style', 'Audio color style')->add_options($this->setLevels())->set_classes('carbon-field--half'),
+                                    Field::make('text', 'audio_module__title', 'Title')->set_classes('carbon-field--half'),
+                                    Field::make('complex', 'audio_module__items', '')->add_fields($this->setAudioFields()),
+                                )
+                            )
                             ->add_fields('list', array(Field::make('complex', 'list', '')->add_fields($this->setListFields())))
                     )),
             ));
@@ -64,6 +70,34 @@ class CarbonFields
         );
 
         return $fields;
+    }
+
+    private function setAudioFields()
+    {
+        $fields = array(
+            Field::make('text', 'audio_module__title', 'Title'),
+            Field::make('file', 'audio_module__image', 'Image')->set_classes('carbon-field--half'),
+            Field::make('file', 'audio_module__file', 'Audio file')->set_classes('carbon-field--half'),
+        );
+
+        return $fields;
+    }
+
+    private function setLevels()
+    {
+        $levels = array();
+        $levelsObjects = get_terms(array(
+            'taxonomy' => 'level',
+            'hide_empty' => false,
+            'parent' => 0
+        ));
+        if (is_array($levelsObjects) && count($levelsObjects) > 0) {
+            foreach ($levelsObjects as $level) {
+                $levels[$level->slug] = $level->name;
+            }
+        }
+
+        return $levels;
     }
 
     private function setListFields()

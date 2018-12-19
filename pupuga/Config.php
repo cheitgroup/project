@@ -33,16 +33,17 @@ abstract class Config
                 //        )
                 //    )
                 'common' => array(
-/*                    'Configuration' => array(
-                        'Parameters' => 'config'
-                    )*/
+                    'Configuration' => array(
+                        'Parameters' => 'config',
+                        'Purchase Order Form' => 'file',
+                        'GDPR Text' => 'rich_text'
+                    )
                 ),
                 // false | array
                 'sections' => array('page'),
                 // false | array
                 'sidebar' => array('page', 'post')
             ),
-
 
             // Example - add postType & taxonomy
             //
@@ -61,7 +62,7 @@ abstract class Config
                     'supports' => array('title'),
                     'taxonomies' => array(),
                     'addTaxonomies' => array(),
-                    'parameters' => array('publicly_queryable' => false, 'menu_position' => true)
+                    'parameters' => array('publicly_queryable' => false)
                 ),
                 'Source' => array(
                     'many' => 'Sources',
@@ -69,9 +70,9 @@ abstract class Config
                     'supports' => array('title', 'page-attributes', 'editor', 'thumbnail'),
                     'taxonomies' => array(),
                     'addTaxonomies' => array(
-                        array('single' => 'Type', 'many' => 'Types'),
-                        array('single' => 'Level', 'many' => 'Levels'),
-                        array('single' => 'Day', 'many' => 'Days'),
+                        array('single' => 'Type', 'many' => 'Types', 'params' => ['public' => false]),
+                        array('single' => 'Level', 'many' => 'Levels', 'params' => ['public' => false]),
+                        array('single' => 'Day', 'many' => 'Days', 'params' => ['public' => false])
                     ),
                     'parameters' => array('publicly_queryable' => false)
                 ),
@@ -79,7 +80,8 @@ abstract class Config
 
             // array
             'registerThumbnails' => array(
-                '360x400' => true
+                '400x400' => true,
+                '740x376' => true
             ),
 
             // boolean | array
@@ -91,10 +93,10 @@ abstract class Config
             /**
              * Remove block
              */
-            'removeRestApi' => true,
+            'removeRestApi' => false,
             'removeAdminMenuItems' => array(
                 //'edit.php',
-                'edit-comments.php',
+                //'edit-comments.php',
             ),
             'removeAdminPluginItems' => array(),
 
@@ -110,6 +112,10 @@ abstract class Config
                 //'RestApi',
                 //'Amp',
                 'Movie',
+                'Plans',
+                'Blog',
+                'Sitemap',
+                'Samplesources',
                 'Doc'
             )
         );

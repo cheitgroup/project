@@ -8,14 +8,15 @@ class PageAdmin
 {
     public function __construct()
     {
-
         //denied dashboard access
         add_action('admin_init', array($this, 'denyDashboardAccess'));
-
-        // admin style & scripts
-        add_action('admin_head', array($this, 'addStylesScripts'));
-        add_filter('mce_external_plugins', array($this, 'tinyMceAddScripts'));
-        add_filter('mce_buttons_3', array($this, 'tinyMceAddButtons'));
+        if (is_admin()) {
+            // admin style & scripts
+            $this->addStyles();
+            add_action('admin_head', array($this, 'addScripts'));
+            add_filter('mce_external_plugins', array($this, 'tinyMceAddScripts'));
+            add_filter('mce_buttons_3', array($this, 'tinyMceAddButtons'));
+        }
     }
 
     public function denyDashboardAccess()
@@ -26,12 +27,19 @@ class PageAdmin
         }
     }
 
-    public function addStylesScripts()
+    public function addStyles()
     {
         $enqueues = array(
             'styles' => array(
                 'style-admin' => 'admin.css'
-            ),
+            )
+        );
+        Load\StylesScripts::app()->requireStylesScripts($enqueues);
+    }
+
+    public function addScripts()
+    {
+        $enqueues = array(
             'scripts' => array(
                 'script-admin' => 'admin.js',
             )
@@ -39,13 +47,12 @@ class PageAdmin
         Load\StylesScripts::app()->requireStylesScripts($enqueues);
     }
 
-
     /**
      * add scripts for editor
      */
     public function tinyMceAddScripts($plugins)
     {
-        $plugins['table'] = __URLASSETS__ . 'tinymce-table.js';
+        $plugins['table'] = __URLASSETSDIST__ . 'tinymce-table.js';
 
         return $plugins;
     }

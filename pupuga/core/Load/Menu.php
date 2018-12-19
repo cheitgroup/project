@@ -183,11 +183,12 @@ class Menu
     /**
      * @return $this
      */
-    public function menuStandard($menuId = 'main')
+    public function menuStandard($menuId)
     {
         $this->container(false)
             ->items_wrap('%3$s')
-            ->menu($menuId);
+            ->menu($menuId)
+            ->fallback_cb('__return_empty_string');
         return $this;
     }
 
@@ -205,11 +206,26 @@ class Menu
 
         return $this;
     }
-    
+
+    /**
+     * @return $this
+     */
+    public function replaceShortCodeLink($search = array()) {
+        if (count($search)) {
+            foreach ($search as $key => $item) {
+                $this->args['search'][] = $key;
+                $this->args['replace'][] = $item;
+            }
+        }
+
+        return $this;
+    }
+
     public function action($echo = true)
     {
         $this->wp_echo(false);
         $menu = wp_nav_menu($this->args);
+        $menu = str_replace($this->args['search'], $this->args['replace'], $menu);
         $menu = str_replace($this->args['span_search'], $this->args['span_replace'], $menu);
 
         if ($echo) {

@@ -6,6 +6,7 @@ class Files
 {
     public static function getFile($file, $echo = false, $params = array(), $dir = __DIRMAIN__)
     {
+
         $html = '';
         if (self::getExt($file) == 'html') {
             $dir = '';
@@ -17,7 +18,7 @@ class Files
             } else {
                 ob_start();
                 require($file);
-                $html = ob_get_clean();
+                $html = preg_replace('/<!--(.*?)-->/', '', ob_get_clean());
             }
         }
 
@@ -52,7 +53,7 @@ class Files
     public static function getTemplatePupuga($template, $echo = false, $params = array())
     {
         $dir = (defined('__DIRTEMPLATES__')) ? __DIRTEMPLATES__ : '';
-        if (is_array($params['slug'])) {
+        if (isset($params['slug']) && is_array($params['slug'])) {
             $params['slug'] = (is_user_logged_in()) ? $params['slug']['user'] : $params['slug']['guest'];
         }
         $html = self::getTemplate($template, $echo, $params, $dir);
@@ -76,4 +77,5 @@ class Files
 		$wrappers = array('<style type="text/css" media="screen">', '</style>');
 		self::getFileWithWrapper($file, $echo, $wrappers);
 	}
+
 }

@@ -26,16 +26,20 @@
     &.#{$flex-class-name}-#{$width-one}-#{$width-other} {
       .blocks__row--half {
         flex: 1 0 $width-one-percent;
+        max-width: $width-one-percent;
         & + .blocks__row--half {
           flex: 1 0 $width-other-percent;
+          max-width: $width-other-percent;
         }
       }
     }
     &.blocks-#{$width-other}-#{$width-one} {
       > .blocks__row--half {
         flex: 1 0 $width-other-percent;
+        max-width: $width-other-percent;
         & + .blocks__row--half {
           flex: 1 0 $width-one-percent;
+          max-width: $width-one-percent;
         }
       }
     }
@@ -48,6 +52,11 @@
   align-items: $centerY;
 }
 
+@mixin flex-inline-center($centerY: center, $centerX: center) {
+  display: inline-flex;
+  justify-content: $centerX;
+  align-items: $centerY;
+}
 
 
 
